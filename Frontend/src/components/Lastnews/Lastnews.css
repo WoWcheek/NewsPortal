@@ -1,0 +1,28 @@
+/* NewsComponent.css */
+
+.news-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .highlight {
+    color: #8aac2b; /* Цвет зеленого как в заголовке news */
+  }
+  
+  .news-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+  
+  .featured-news {
+    grid-column: 1 / span 2; /* Большая карточка */
+  }
+  

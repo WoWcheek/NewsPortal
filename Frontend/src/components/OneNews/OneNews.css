@@ -1,0 +1,33 @@
+/* NewsCard.css */
+
+.news-card {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .news-card-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .news-card-content {
+    padding: 10px;
+  }
+  
+  .news-card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .news-card-time, .news-card-date {
+    font-size: 12px;
+    color: #888;
+  }
+  

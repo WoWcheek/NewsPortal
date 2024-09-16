@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
+import Topmenu from "./components/Topmenu/Topmenu.tsx";
+import Lastnews from "./components/Lastnews/Lastnews.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
+    
     <React.StrictMode>
-        <App />
+        <Topmenu />
+        <Lastnews />
     </React.StrictMode>
 );
