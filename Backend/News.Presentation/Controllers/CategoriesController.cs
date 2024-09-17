@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using News.BLL.DTO;
@@ -43,6 +44,7 @@ public class CategoriesController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Add([FromBody] AddCategoryRequest request)
     {
         var categoryDto = _mapper.Map<CategoryDTO>(request);
@@ -62,6 +64,7 @@ public class CategoriesController : Controller
     }
 
     [HttpPut]
+    [Authorize]
     [Route("{id:Guid}")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateArticleRequest request)
     {
@@ -83,6 +86,7 @@ public class CategoriesController : Controller
     }
 
     [HttpDelete]
+    [Authorize]
     [Route("{id:Guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
