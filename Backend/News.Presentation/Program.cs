@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using News.DAL.Interfaces;
+using News.DAL.Repositories;
 using News.DAL.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<NewsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers();
 
