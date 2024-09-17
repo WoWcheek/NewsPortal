@@ -45,35 +45,13 @@ public class ArticleService : IArticleService
 
     public async Task<ArticleDTO> CreateArticle(ArticleDTO newArticle)
     {
-        var listWithCategory = await _unitOfWork
+        var categoryExist = await _unitOfWork
             .Categories
-            .Find(x => string.Compare(x.Name, newArticle.Category.Name, StringComparison.OrdinalIgnoreCase) == 0);
+            .Exists(newArticle.Id);
 
-        var category = listWithCategory.Count() > 0
-            ? listWithCategory.ElementAt(0)
-            : null;
-
-        if (category is null)
+        if (!categoryExist)
         {
-            var categoryToAdd = _mapper
-                .Map<Category>(newArticle.Category);
-
-            try
-            {
-                var addedCategory = await _unitOfWork
-                    .Categories
-                    .Add(categoryToAdd);
-
-                newArticle.CategoryId = addedCategory!.Id;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        else
-        {
-            newArticle.CategoryId = category.Id;
+            throw new Exception("Category does not exist.");
         }
 
         var author = await _userManager
@@ -86,6 +64,8 @@ public class ArticleService : IArticleService
 
         var article = _mapper
             .Map<Article>(newArticle);
+
+        article.CreatedAt = DateTime.Now;
 
         var createdArticle = await _unitOfWork
             .Articles
@@ -106,35 +86,13 @@ public class ArticleService : IArticleService
 
     public async Task<ArticleDTO> UpdateArticle(ArticleDTO newArticle)
     {
-        var listWithCategory = await _unitOfWork
+        var categoryExist = await _unitOfWork
             .Categories
-            .Find(x => string.Compare(x.Name, newArticle.Category.Name, StringComparison.OrdinalIgnoreCase) == 0);
+            .Exists(newArticle.Id);
 
-        var category = listWithCategory.Count() > 0
-            ? listWithCategory.ElementAt(0)
-            : null;
-
-        if (category is null)
+        if (!categoryExist)
         {
-            var categoryToAdd = _mapper
-                .Map<Category>(newArticle.Category);
-
-            try
-            {
-                var addedCategory = await _unitOfWork
-                    .Categories
-                    .Add(categoryToAdd);
-
-                newArticle.CategoryId = addedCategory!.Id;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        else
-        {
-            newArticle.CategoryId = category.Id;
+            throw new Exception("Category does not exist.");
         }
 
         var author = await _userManager

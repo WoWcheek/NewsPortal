@@ -1,6 +1,8 @@
-﻿namespace News.BLL.DTO;
+﻿using News.BLL.DTO;
 
-public class ArticleDTO
+namespace News.Presentation.Models.Responses;
+
+public class ArticleResponse
 {
     public Guid Id { get; set; }
 
@@ -12,9 +14,7 @@ public class ArticleDTO
 
     public DateTime CreatedAt { get; set; }
 
-    public Guid CategoryId { get; set; }
+    public string Category { get; set; } = string.Empty;
 
-    public CategoryDTO Category { get; set; } = null!;
-
-    public string AuthorId { get; set; } = string.Empty;
+    public string Author { get; set; } = string.Empty;
 }
