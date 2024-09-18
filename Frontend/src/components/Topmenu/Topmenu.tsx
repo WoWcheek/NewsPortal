@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import logo from '../../image/logo_homepage.png';
 import globus from '../../image/Globus.png';
 import logining from '../../image/autor.png';
 import logo_autor from '../../image/autorisation_mage.png'
@@ -22,7 +21,7 @@ const Topmenu: FC<TopmenuProps> = () => {
     <div className='centralB'>
       <div className='imagesdiv'>
         <img src={globus} className='item' alt="Globus" />
-        <img src={logo} className='item' alt="Logo" />
+        <h3 className="footer-logo"><span className="highlight">News</span></h3>
         <img 
           src={logining} 
           className='item' 

@@ -50,6 +50,15 @@
     color: #6d6d6d;
   }
   
+  .footer-logo {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .highlight {
+    color: #8aac2b; /* Цвет зеленого логотипа */
+  }
   .modal-logo {
     width: 300px;
     margin-bottom: 75px;
@@ -84,4 +93,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+  }
+  h3{
+    font-family: 'Montserrat', sans-serif;
   }

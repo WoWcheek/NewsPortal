@@ -47,7 +47,7 @@ public class ArticleService : IArticleService
     {
         var categoryExist = await _unitOfWork
             .Categories
-            .Exists(newArticle.Id);
+            .Exists(newArticle.CategoryId);
 
         if (!categoryExist)
         {
