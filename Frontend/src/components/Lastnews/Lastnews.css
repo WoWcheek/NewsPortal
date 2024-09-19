@@ -1,0 +1,48 @@
+.news-container {
+  width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  height: auto; /* Автоматическая высота для контейнера */
+}
+
+h2 {
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #8aac2b; /* Цвет зеленого как в заголовке news */
+}
+
+.news-grid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.featured-news {
+  height: 700px;
+  width: 700px;
+  margin-right: 20px;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Стиль для отображения остальных новостей в два ряда */
+.remaining-news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Два столбца */
+  grid-gap: 20px; /* Пробелы между карточками */
+  margin-top: 20px;
+}
+
+.line {
+  width: 100%; /* Занимает всю ширину контейнера */
+  height: 5px;
+  background-color: #6b6b6b; /* Изменен цвет линии на серый */
+  margin: 20px auto;
+}

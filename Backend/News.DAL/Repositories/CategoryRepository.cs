@@ -45,9 +45,10 @@ public class CategoryRepository : IRepository<Category>
 
     public async Task<bool> Exists(Func<Category, bool> predicate)
     {
-        return await _context
+        return _context
             .Categories
-            .AnyAsync(x => predicate(x));
+            .Where(predicate)
+            .Count() > 0;
     }
 
     public async Task<Category?> Add(Category item)
