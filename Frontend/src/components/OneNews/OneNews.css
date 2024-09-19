@@ -1,7 +1,7 @@
-.name_h3{
-  font-family: 'Montserrat', Courier, monospace;
-  font-size: 30px;
-  font-weight: 1000;
+.name_h3 {
+    font-family: "Montserrat", Courier, monospace;
+    font-size: 30px;
+    font-weight: 1000;
 }
 
 .news-card {
@@ -14,30 +14,30 @@
     margin-bottom: 20px;
     width: 700px;
     height: 150px;
-    padding: 10px 10px 10px 10px;
     border-radius: 50px;
     border: #000000;
-  }
-  
-  .news-card-image {
+}
+
+.news-card-image {
     width: 150px;
     height: 150px;
     object-fit: cover;
-  }
-  
-  .news-card-content {
+}
+
+.news-card-content {
     padding: 10px;
-    width: 100%;
-  }
-  
-  .news-card-footer {
+    width: calc(100% - 160px);
+}
+
+.news-card-footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .news-card-time, .news-card-date {
+    margin-top: 30px;
+}
+
+.news-card-time,
+.news-card-date {
     font-size: 12px;
     color: #888;
-  }
-  
+    margin-right: 20px;
+}
