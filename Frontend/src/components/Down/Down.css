@@ -1,0 +1,90 @@
+/* Общие стили для футера */
+.footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .footer-logo {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .highlight {
+    color: #8aac2b; /* Цвет зеленого логотипа */
+  }
+  
+  .footer-nav {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .footer-nav li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .footer-nav a:hover {
+    color: #8aac2b;
+  }
+  
+  /* Кнопки для загрузки приложений */
+  .footer-column-download .download-btn {
+    display: block;
+    margin-bottom: 10px;
+    background-color: #8aac2b;
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .google-play {
+    background-color: #8aac2b;
+  }
+  
+  .app-store {
+    background-color: #8aac2b;
+  }
+  
+  .download-btn span {
+    display: block;
+    font-size: 12px;
+    color: #fff;
+  }
+  
+  /* Нижний блок футера */
+  .footer-bottom {
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    color: #aaa;
+  }
+  
+  .footer-bottom p {
+    margin: 5px 0;
+  }
+  
