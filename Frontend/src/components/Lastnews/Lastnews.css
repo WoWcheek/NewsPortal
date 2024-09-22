@@ -6,9 +6,9 @@
 }
 
 h2 {
-  font-size: 45px;
-  font-weight: bold;
-  margin-bottom: 20px;
+    font-size: 45px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .highlight {
@@ -16,20 +16,20 @@ h2 {
 }
 
 .news-grid {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .featured-news {
-  height: 700px;
-  width: 700px;
-  margin-right: 20px;
+    height: 700px;
+    width: 700px;
+    margin-right: 20px;
 }
 
 .news-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* Стиль для отображения остальных новостей в два ряда */

@@ -96,6 +96,7 @@ const NewsComponent: React.FC = () => {
       </div>
     </div>
   );
+
 };
 
 export default NewsComponent;
