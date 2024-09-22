@@ -1,23 +1,21 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Используем для навигации
-import './BigNews.css'; // импортируем стили для карточки
+import { useNavigate } from 'react-router-dom';
+import './BigNews.css';
 
-// Интерфейс для свойств компонента NewsCard
 interface NewsCardProps {
-  id: string;  // Добавляем id для перехода на конкретную новость
+  id: string; 
   image: string;
   title: string;
   time: string;
   date: string;
 }
 
-// Компонент для рендеринга отдельной карточки новости
-const NewsCard: React.FC<NewsCardProps> = ({ id, image, title, time, date }) => {
-  const navigate = useNavigate(); // Используем useNavigate для перехода
 
-  // Функция для обработки клика на карточку
+const NewsCard: React.FC<NewsCardProps> = ({ id, image, title, time, date }) => {
+  const navigate = useNavigate(); 
+
   const handleClick = () => {
-    navigate(`/news/${id}`); // Переход на страницу новости с указанным id
+    navigate(`/news/${id}`); 
   };
 
   return (

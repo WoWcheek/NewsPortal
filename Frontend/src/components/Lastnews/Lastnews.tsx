@@ -1,38 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import NewsCard from '../OneNews/OneNews'; // Импортируем компонент для отображения отдельной новости
+import NewsCard from '../OneNews/OneNews'; 
 import './LastNews.css';
 import BigNews from '../BigNews/BigNews';
 
-// Интерфейс для одного элемента новости, который соответствует ArticleResponse
 interface NewsItem {
-  id: string;          // ID новости
-  title: string;       // Заголовок новости
-  content: string;     // Содержимое новости
-  pictureUrl: string;  // URL изображения
-  createdAt: Date;     // Дата создания
-  category: string;    // Категория новости
-  author: string;      // Автор новости
+  id: string;          
+  title: string;       
+  content: string;    
+  pictureUrl: string;  
+  createdAt: Date;     
+  category: string;   
+  author: string;      
 }
 
-// Главный компонент для рендеринга блока с новостями
-const NewsComponent: React.FC = () => {
-  const [newsItems, setNewsItems] = useState<NewsItem[]>([]); // Состояние для новостей
-  const [loading, setLoading] = useState<boolean>(true);      // Состояние для загрузки
-  const [error, setError] = useState<string | null>(null);    // Состояние для ошибок
 
-  // Вызов useEffect для получения данных при монтировании компонента
+const NewsComponent: React.FC = () => {
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]); 
+  const [loading, setLoading] = useState<boolean>(true);      
+  const [error, setError] = useState<string | null>(null);    
+
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch('https://localhost:7101/api/articles'); // Изменён путь к API
+        const response = await fetch('https://localhost:7101/api/articles');
         console.log(response);
         const data: NewsItem[] = await response.json();
         console.log(data);
 
-        // Сортируем новости по дате создания (новейшие — первые)
         const sortedData = data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-        setNewsItems(sortedData); // Устанавливаем отсортированные статьи в состояние
+        setNewsItems(sortedData);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching news:', error);
@@ -42,19 +39,18 @@ const NewsComponent: React.FC = () => {
     };
 
     fetchNews();
-  }, []); // Пустой массив, чтобы useEffect сработал только при монтировании
+  }, []);
 
   if (loading) {
-    return <p>Loading news...</p>; // Отображаем текст загрузки, пока данные не получены
+    return <p>Loading news...</p>;
   }
 
   if (error) {
-    return <p>{error}</p>; // Отображаем ошибку в случае неудачи запроса
+    return <p>{error}</p>;
   }
 
-  // Выбираем первые 5 новостей, которые будут отображены как основные
   const featuredNews = newsItems.slice(0, 5);
-  // Остальные новости будут отображаться ниже в два ряда
+
   const remainingNews = newsItems.slice(5);
 
   return (
@@ -65,37 +61,36 @@ const NewsComponent: React.FC = () => {
           <div className="featured-news">
             <BigNews
               id={featuredNews[0].id}
-              image={featuredNews[0].pictureUrl} // Используем поле pictureUrl вместо urlToImage
+              image={featuredNews[0].pictureUrl}
               title={featuredNews[0].title}
-              time={new Date(featuredNews[0].createdAt).toLocaleTimeString()} // Преобразуем createdAt в time
-              date={new Date(featuredNews[0].createdAt).toLocaleDateString()} // Преобразуем createdAt в дату
+              time={new Date(featuredNews[0].createdAt).toLocaleTimeString()}
+              date={new Date(featuredNews[0].createdAt).toLocaleDateString()}
             />
           </div>
         )}
         <div className="news-list">
-          {/* Ограничиваем отображение 4 последних новостей, начиная со второй */}
+
           {featuredNews.slice(1).map((item) => (
             <NewsCard
-              id={item.id} // Используем уникальный идентификатор
-              image={item.pictureUrl} // Используем поле pictureUrl вместо urlToImage
+              id={item.id}
+              image={item.pictureUrl}
               title={item.title}
-              time={new Date(item.createdAt).toLocaleTimeString()} // Преобразуем createdAt в time
-              date={new Date(item.createdAt).toLocaleDateString()} // Преобразуем createdAt в дату
+              time={new Date(item.createdAt).toLocaleTimeString()} 
+              date={new Date(item.createdAt).toLocaleDateString()} 
             />
           ))}
         </div>
       </div>
       <div className='line'></div>
-      {/* Добавляем отображение остальных новостей в два ряда */}
       <h2>And more <span className="highlight">News</span></h2>
       <div className="remaining-news-grid">
         {remainingNews.map((item) => (
           <NewsCard
-            id={item.id} // Используем уникальный идентификатор
-            image={item.pictureUrl} // Используем поле pictureUrl вместо urlToImage
+            id={item.id}
+            image={item.pictureUrl}
             title={item.title}
-            time={new Date(item.createdAt).toLocaleTimeString()} // Преобразуем createdAt в time
-            date={new Date(item.createdAt).toLocaleDateString()} // Преобразуем createdAt в дату
+            time={new Date(item.createdAt).toLocaleTimeString()}
+            date={new Date(item.createdAt).toLocaleDateString()}
           />
         ))}
       </div>

@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
 
       {/* Нижний блок с копирайтом */}
       <div className="footer-bottom">
-        <p>&copy; VivoOlio 2024</p>
+        <p>&copy; V.V.V.News 2024</p>
         <p>Усі права захищені</p>
       </div>
     </footer>

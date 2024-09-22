@@ -2,22 +2,18 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OneNews.css';
 
-// Интерфейс для свойств компонента NewsCard
 interface NewsCardProps {
-  id: string; // ID новости, чтобы на него сделать переход
+  id: string;
   image: string;
   title: string;
   time: string;
   date: string;
 }
 
-// Компонент для рендеринга отдельной карточки новости
 const NewsCard: React.FC<NewsCardProps> = ({ id, image, title, time, date }) => {
-  const navigate = useNavigate(); // Используем useNavigate вместо useHistory
+  const navigate = useNavigate();
 
-  // Функция для обработки клика на карточку
   const handleClick = () => {
-    // Переходим на страницу новости по ее ID
     navigate(`/news/${id}`);
   };
 

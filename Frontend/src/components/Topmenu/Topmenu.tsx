@@ -1,13 +1,15 @@
 import React, { FC, useState } from 'react';
 import globus from '../../image/Globus.png';
 import logining from '../../image/autor.png';
-import logo_autor from '../../image/autorisation_mage.png'
+import logo_autor from '../../image/autorisation_mage.png';
 import './Topmenu.css';
 
 interface TopmenuProps {}
 
 const Topmenu: FC<TopmenuProps> = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [nickname, setNickname] = useState(''); 
+  const [password, setPassword] = useState(''); 
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -15,6 +17,15 @@ const Topmenu: FC<TopmenuProps> = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
+  };
+
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    console.log('Nickname:', nickname);
+    console.log('Password:', password);
+
+    handleCloseModal();
   };
 
   return (
@@ -37,14 +48,28 @@ const Topmenu: FC<TopmenuProps> = () => {
           <div className="modal-content">
             <span className="close-button" onClick={handleCloseModal}>&times;</span>
             
-            {/* Логотип */}
             <img src={logo_autor} alt="Logo" className="modal-logo" />
             
-            {/* Поле ввода */}
-            <input type="email" className="modal-input" placeholder="Введите Email"/>
-            
-            {/* Кнопка */}
-            <button className="modal-button">Next</button>
+            <form onSubmit={handleLoginSubmit}>
+              <input 
+                type="text" 
+                className="modal-input" 
+                placeholder="Введите имя пользователя" 
+                value={nickname} 
+                onChange={(e) => setNickname(e.target.value)} 
+                required
+              />
+              <input 
+                type="password" 
+                className="modal-input" 
+                placeholder="Введите пароль" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                required
+              />
+              
+              <button type="submit" className="modal-button">Login</button>
+            </form>
           </div>
         </div>
       )}
