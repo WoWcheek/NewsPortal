@@ -46,3 +46,28 @@ h2 {
   background-color: #6b6b6b;
   margin: 20px auto;
 }
+
+.add-button {
+  background-color: #8aac2b; /* Зеленый цвет в стиле сайта */
+  border: none;
+  color: white;
+  padding: 15px 30px; /* Увеличенные отступы для более крупной кнопки */
+  font-size: 18px; /* Размер текста на кнопке */
+  font-weight: bold;
+  border-radius: 5px; /* Легкое закругление углов */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Плавная анимация при наведении */
+  text-align: center;
+  display: inline-block;
+  margin: 20px 0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.add-button:hover {
+  background-color: #799a24; /* Темнее при наведении */
+}
+
+.add-button:active {
+  background-color: #6b8b1f; /* Еще темнее при клике */
+  transform: scale(0.98); /* Легкое уменьшение при нажатии */
+}

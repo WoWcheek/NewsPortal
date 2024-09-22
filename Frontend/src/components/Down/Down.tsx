@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Левая колонка с логотипом и навигацией */}
+        {/* Левая колонка с логотипом и навигацией */}y
         <div className="footer-column">
           <ul className="footer-nav">
             <li><a href="#">About us</a></li>
