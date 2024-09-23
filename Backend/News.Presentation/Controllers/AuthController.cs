@@ -24,6 +24,15 @@ public class AuthController : Controller
         _configuration = configuration;
     }
 
+    /// <summary>
+    /// Вход пользователя в аккаунт
+    /// </summary>
+    /// <param name="request">
+    /// Запрос, включающий в себя имя пользователя и пароль
+    /// </param>
+    /// <returns>
+    /// JWT токен и точное время его истечения
+    /// </returns>
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] SignInRequest request)
@@ -52,6 +61,15 @@ public class AuthController : Controller
         return Unauthorized();
     }
 
+    /// <summary>
+    /// Регистрация пользователя
+    /// </summary>
+    /// <param name="request">
+    /// Запрос, включающий в себя имя пользователя, адрес електронной почты и пароль
+    /// </param>
+    /// <returns>
+    /// Успешная/неуспешная регистрация. Для получения токена нужно послать запрос на вход.
+    /// </returns>
     [HttpPost]
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] SignUpRequest request)
