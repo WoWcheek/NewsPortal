@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Добавляем useNavigate
 import './OneNewsAll.css';
 
-// Интерфейс для данных новости
 interface NewsItem {
   id: string;
   title: string;
@@ -10,18 +9,17 @@ interface NewsItem {
   pictureUrl: string;
   createdAt: Date;
   author: string;
-  authorAvatarUrl: string; // Добавляем поле для URL аватарки автора
+  authorAvatarUrl: string;
 }
 
-// Компонент для отображения детальной страницы новости
 const NewsDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Получаем ID новости из параметров URL
+  const { id } = useParams<{ id: string }>(); // Получаем ID новости из URL
   const [newsItem, setNewsItem] = useState<NewsItem | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate(); // Хук для навигации
 
   useEffect(() => {
-    // Загрузка данных новости с API
     const fetchNewsItem = async () => {
       try {
         const response = await fetch(`https://localhost:7101/api/articles/${id}`);
@@ -37,10 +35,9 @@ const NewsDetails: React.FC = () => {
     fetchNewsItem();
   }, [id]);
 
-  // Функция для форматирования времени (пример: "3 часа назад")
   const timeAgo = (date: Date) => {
     const now = new Date();
-    const diff = Math.floor((now.getTime() - new Date(date).getTime()) / 1000); // Разница в секундах
+    const diff = Math.floor((now.getTime() - new Date(date).getTime()) / 1000);
 
     const hours = Math.floor(diff / 3600);
     const days = Math.floor(hours / 24);
@@ -52,6 +49,14 @@ const NewsDetails: React.FC = () => {
     } else {
       const minutes = Math.floor(diff / 60);
       return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    }
+  };
+
+  // Обработчик для перехода на страницу редактирования
+  const handleEditClick = () => {
+    if (newsItem) {
+      // Переход на страницу редактирования с передачей id новости
+      navigate(`/edit/${newsItem.id}`, { state: { newsItem } });
     }
   };
 
@@ -68,12 +73,11 @@ const NewsDetails: React.FC = () => {
       {newsItem && (
         <>
           <h1>{newsItem.title}</h1>
+          <button onClick={handleEditClick} className="edit-button">Редактировать</button> {/* Добавляем кнопку */}
           <div className="news-meta">
             <div className="author-info">
-              {/* URL аватарки автора */}
               <img src="https://cdn-icons-png.flaticon.com/512/3076/3076248.png" alt={newsItem.author} className="author-avatar" />
               <span>{newsItem.author}</span>
-              {/* Отображаем сколько времени прошло с момента публикации */}
               <span className="news-time">{timeAgo(newsItem.createdAt)}</span>
               <span className="news-date">{new Date(newsItem.createdAt).toLocaleDateString()}</span>
             </div>
