@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.Presentation", "News.Presentation\News.Presentation.csproj", "{2630EFC2-4E00-48E7-A622-6BCE040C4405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.Presentation", "News.Presentation\News.Presentation.csproj", "{2630EFC2-4E00-48E7-A622-6BCE040C4405}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A93791B2-7411-4997-88FC-A7141BB6A43E} = {A93791B2-7411-4997-88FC-A7141BB6A43E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.BLL", "News.BLL\News.BLL.csproj", "{A93791B2-7411-4997-88FC-A7141BB6A43E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.BLL", "News.BLL\News.BLL.csproj", "{A93791B2-7411-4997-88FC-A7141BB6A43E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E9F423B8-EE79-464B-A269-C839D85D9094} = {E9F423B8-EE79-464B-A269-C839D85D9094}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "News.DAL", "News.DAL\News.DAL.csproj", "{E9F423B8-EE79-464B-A269-C839D85D9094}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.DAL", "News.DAL\News.DAL.csproj", "{E9F423B8-EE79-464B-A269-C839D85D9094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestArticle", "TestArticle\TestArticle.csproj", "{9DADC74E-717A-49EF-B7F6-F222524CE2EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E9F423B8-EE79-464B-A269-C839D85D9094}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9F423B8-EE79-464B-A269-C839D85D9094}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9F423B8-EE79-464B-A269-C839D85D9094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DADC74E-717A-49EF-B7F6-F222524CE2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DADC74E-717A-49EF-B7F6-F222524CE2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DADC74E-717A-49EF-B7F6-F222524CE2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DADC74E-717A-49EF-B7F6-F222524CE2EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
