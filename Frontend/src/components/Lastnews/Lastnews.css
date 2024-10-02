@@ -32,7 +32,6 @@ h2 {
     justify-content: space-between;
 }
 
-/* Стиль для отображения остальных новостей в два ряда */
 .remaining-news-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -48,26 +47,26 @@ h2 {
 }
 
 .add-button {
-  background-color: #8aac2b; /* Зеленый цвет в стиле сайта */
+  background-color: #8aac2b;
   border: none;
   color: white;
-  padding: 15px 30px; /* Увеличенные отступы для более крупной кнопки */
-  font-size: 18px; /* Размер текста на кнопке */
+  padding: 15px 30px;
+  font-size: 18px;
   font-weight: bold;
-  border-radius: 5px; /* Легкое закругление углов */
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Плавная анимация при наведении */
+  transition: background-color 0.3s ease;
   text-align: center;
   display: inline-block;
   margin: 20px 0;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .add-button:hover {
-  background-color: #799a24; /* Темнее при наведении */
+  background-color: #799a24;
 }
 
 .add-button:active {
-  background-color: #6b8b1f; /* Еще темнее при клике */
-  transform: scale(0.98); /* Легкое уменьшение при нажатии */
+  background-color: #6b8b1f;
+  transform: scale(0.98);
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Добавляем useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 import './OneNewsAll.css';
 
 interface NewsItem {
@@ -10,14 +10,15 @@ interface NewsItem {
   createdAt: Date;
   author: string;
   authorAvatarUrl: string;
+  category: string;
 }
 
 const NewsDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Получаем ID новости из URL
+  const { id } = useParams<{ id: string }>();
   const [newsItem, setNewsItem] = useState<NewsItem | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate(); // Хук для навигации
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNewsItem = async () => {
@@ -52,20 +53,17 @@ const NewsDetails: React.FC = () => {
     }
   };
 
-  // Обработчик для перехода на страницу редактирования
   const handleEditClick = () => {
     if (newsItem) {
-      // Переход на страницу редактирования с передачей id новости
       navigate(`/edit/${newsItem.id}`, { state: { newsItem } });
     }
   };
 
-  // Обработчик удаления новости
   const handleDeleteClick = async () => {
     const confirmed = window.confirm("Вы уверены, что хотите удалить эту новость?");
     if (!confirmed) return;
 
-    const token = localStorage.getItem('token'); // Получаем токен из локального хранилища
+    const token = localStorage.getItem('token');
 
     if (!token) {
       alert("Необходимо войти в систему для выполнения этого действия");
@@ -82,7 +80,7 @@ const NewsDetails: React.FC = () => {
 
       if (response.ok) {
         alert("Новость успешно удалена");
-        navigate('/'); // Перенаправляем на главную страницу после удаления
+        navigate('/');
       } else {
         const errorData = await response.json();
         alert(`Ошибка при удалении: ${errorData.message || 'Неизвестная ошибка'}`);
@@ -105,10 +103,11 @@ const NewsDetails: React.FC = () => {
     <div className="news-details">
       {newsItem && (
         <>
-          <h1>{newsItem.title}</h1>
+          <h1>{newsItem.title}</h1> 
+          <h3>Категория : <span className="highlight">{newsItem.category}</span></h3>
           <div className="button-group">
             <button onClick={handleEditClick} className="edit-button">Редактировать</button>
-            <button onClick={handleDeleteClick} className="delete-button">Удалить</button> {/* Кнопка удаления */}
+            <button onClick={handleDeleteClick} className="delete-button">Удалить</button>
           </div>
           <div className="news-meta">
             <div className="author-info">

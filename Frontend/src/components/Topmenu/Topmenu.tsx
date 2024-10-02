@@ -7,6 +7,7 @@ import "./Topmenu.css";
 
 interface TopmenuProps {}
 
+
 const Topmenu: FC<TopmenuProps> = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
@@ -121,12 +122,8 @@ const Topmenu: FC<TopmenuProps> = () => {
                             onClick={handleCloseModal}>
                             &times;
                         </span>
+                        <h1 className="Label_reg">Autorisation</h1>
 
-                        <img
-                            src={logo_autor}
-                            alt="Logo"
-                            className="modal-logo"
-                        />
 
                         <form onSubmit={handleLoginSubmit}>
                             {!isLogin && (

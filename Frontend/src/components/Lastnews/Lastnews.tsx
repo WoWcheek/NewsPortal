@@ -10,31 +10,41 @@ interface NewsItem {
   content: string;    
   pictureUrl: string; 
   createdAt: Date;     
-  category: string;   
+  category: string;   // Название категории в новости
   author: string;      
+}
+
+interface Category {
+  id: string;  // UUID категории
+  name: string;  // Название категории
 }
 
 const NewsComponent: React.FC = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]); 
   const [loading, setLoading] = useState<boolean>(true);      
-  const [error, setError] = useState<string | null>(null);    
+  const [error, setError] = useState<string | null>(null);  
+  const [categoryId, setCategoryId] = useState('');  // ID выбранной категории
+  const [categories, setCategories] = useState<Category[]>([]);  
   
-  const navigate = useNavigate(); // Инициализируем useNavigate
+  const navigate = useNavigate();
 
+  // Получение новостей
   useEffect(() => {
     const fetchNews = async () => {
       try {
+        console.log('Запрашиваем новости...');
         const response = await fetch('https://localhost:7101/api/articles');
-        console.log(response);
         const data: NewsItem[] = await response.json();
-        console.log(data);
 
+        console.log('Новости получены:', data);
+
+        // Сортируем новости по дате создания
         const sortedData = data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
         setNewsItems(sortedData);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching news:', error);
+        console.error('Ошибка при получении новостей:', error);
         setError('Failed to load news');
         setLoading(false);
       }
@@ -43,24 +53,85 @@ const NewsComponent: React.FC = () => {
     fetchNews();
   }, []);
 
+  // Получение категорий
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        console.log('Запрашиваем категории...');
+        const token = localStorage.getItem('token');
+        const response = await fetch('https://localhost:7101/api/categories', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+
+        console.log('Категории получены:', data);
+
+        setCategories(data);
+      } catch (error) {
+        console.error('Ошибка при загрузке категорий:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // Показываем состояние загрузки или ошибку, если они есть
   if (loading) {
+    console.log('Загрузка новостей...');
     return <p>Loading news...</p>;
   }
 
   if (error) {
+    console.log('Ошибка:', error);
     return <p>{error}</p>;
   }
 
-  const featuredNews = newsItems.slice(0, 5);
-  const remainingNews = newsItems.slice(5);
+  // Находим название выбранной категории по её ID
+  const selectedCategoryName = categoryId
+    ? categories.find(category => category.id === categoryId)?.name
+    : '';
 
+  console.log('Выбранная категория (название):', selectedCategoryName);
+
+  // Фильтруем новости по названию категории
+  const filteredNewsItems = selectedCategoryName
+    ? newsItems.filter(item => item.category === selectedCategoryName)  // Сравнение с названием категории
+    : newsItems;  // Если категория не выбрана, показываем все новости
+
+  console.log('Отфильтрованные новости:', filteredNewsItems);
+
+  // Выделяем избранные и оставшиеся новости
+  const featuredNews = filteredNewsItems.slice(0, 5);
+  const remainingNews = filteredNewsItems.slice(5);
+
+  // Обработчик для добавления новости
   const handleAddNews = () => {
+    console.log('Переход на добавление новостей');
     navigate('/add-news');
   };
 
   return (
     <div className="news-container">
       <h2>Today in the <span className="highlight">news</span></h2>
+
+      <label>
+        Категория:
+        <select value={categoryId} onChange={(e) => {
+          const newCategoryId = e.target.value;
+          setCategoryId(newCategoryId);
+          console.log('Выбранная категория (ID):', newCategoryId);
+        }}>
+          <option value="">Выберите категорию</option>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+      </label>
+
       <div className="news-grid">
         {featuredNews.length > 0 && (
           <div className="featured-news">
@@ -76,6 +147,7 @@ const NewsComponent: React.FC = () => {
         <div className="news-list">
           {featuredNews.slice(1).map((item) => (
             <NewsCard
+              key={item.id}
               id={item.id}
               image={item.pictureUrl}
               title={item.title}
@@ -91,6 +163,7 @@ const NewsComponent: React.FC = () => {
       <div className="remaining-news-grid">
         {remainingNews.map((item) => (
           <NewsCard
+            key={item.id}
             id={item.id}
             image={item.pictureUrl}
             title={item.title}

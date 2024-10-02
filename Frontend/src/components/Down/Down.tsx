@@ -5,7 +5,6 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Левая колонка с логотипом и навигацией */}y
         <div className="footer-column">
           <ul className="footer-nav">
             <li><a href="#">About us</a></li>
@@ -14,7 +13,6 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        {/* Центральная колонка с политикой сайта */}
         <div className="footer-column">
           <ul className="footer-nav">
           <h3 className="footer-logo">V.V.V.<span className="highlight">News</span></h3>
@@ -25,7 +23,6 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        {/* Правая колонка с кнопками загрузки */}
         <div className="footer-column footer-column-download">
           <a href="#" className="download-btn google-play">
             <span>Завантажити в</span> Google Play
@@ -36,7 +33,6 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Нижний блок с копирайтом */}
       <div className="footer-bottom">
         <p>&copy; V.V.V.News 2024</p>
         <p>Усі права захищені</p>
