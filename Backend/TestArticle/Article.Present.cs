@@ -5,14 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using News.BLL.DTO;
 using News.BLL.Interfaces;
+using News.DAL.Entities;
 using News.Presentation.Controllers;
 using News.Presentation.Models.Requests;
 using News.Presentation.Models.Responses;
-using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Xunit;
+using System.Security.Principal;
 
 public class ArticlesControllerTests
 {
@@ -27,6 +25,16 @@ public class ArticlesControllerTests
         _mapperMock = new Mock<IMapper>();
         _userManagerMock = MockUserManager();
         _controller = new ArticlesController(_mapperMock.Object, _articleServiceMock.Object, _userManagerMock.Object);
+
+        var authorName = "Test_user";
+
+        var httpContext = new DefaultHttpContext()
+        {
+            User = new ClaimsPrincipal(new GenericIdentity(authorName))
+        };
+        var actionContext = new ActionContext(httpContext, new Microsoft.AspNetCore.Routing.RouteData(),
+                                                           new Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor());
+        _controller.ControllerContext = new ControllerContext(actionContext);
     }
 
     // Тест на получение всех статей
@@ -89,52 +97,124 @@ public class ArticlesControllerTests
     [Fact]
     public async Task Add_ReturnsOkResult_WithCreatedArticle()
     {
-        // Arrange
-        var addRequest = new AddArticleRequest { Title = "Test Article" };
-        var articleDto = new ArticleDTO { Id = Guid.NewGuid(), AuthorId = "1" };
-        var articleResponse = new ArticleResponse { Id = articleDto.Id, Author = "user1" };
+        var categoryGuid = Guid.NewGuid();
+        var articleId = Guid.NewGuid();
+        var authorId = Guid.NewGuid().ToString();
+        var authorName = "Test_user";
 
-        _mapperMock.Setup(m => m.Map<ArticleDTO>(addRequest)).Returns(articleDto);
-        _articleServiceMock.Setup(s => s.CreateArticle(articleDto)).ReturnsAsync(articleDto);
-        _mapperMock.Setup(m => m.Map<ArticleResponse>(articleDto)).Returns(articleResponse);
+        var request = new AddArticleRequest
+        {
+            Title = "Test_title",
+            Content = "Test_content",
+            PictureUrl = "Test_url",
+            CategoryId = categoryGuid
+        };
 
-        _userManagerMock.Setup(um => um.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(new IdentityUser { Id = "1", UserName = "user1" });
-        SetUserContext("user1");
+        var dto = new ArticleDTO
+        {
+            Id = articleId,
+            Title = request.Title,
+            Content = request.Content,
+            PictureUrl = request.PictureUrl,
+            CreatedAt = DateTime.UtcNow,
+            AuthorId = authorId
+        };
 
-        // Act
-        var result = await _controller.Add(addRequest);
+        var response = new ArticleResponse
+        {
+            Id = articleId,
+            Title = request.Title,
+            Content = request.Content,
+            PictureUrl = request.PictureUrl,
+            CreatedAt = DateTime.UtcNow,
+            Category = "Test_category",
+            Author = authorName
+        };
 
-        // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnValue = Assert.IsType<ArticleResponse>(okResult.Value);
-        Assert.Equal(articleDto.Id, returnValue.Id);
-        Assert.Equal("user1", returnValue.Author);
+        var author = new IdentityUser
+        {
+            UserName = authorName,
+            Id = authorId
+        };
+
+        _userManagerMock.Setup(m => m.FindByIdAsync(authorId)).ReturnsAsync(author);
+        _userManagerMock.Setup(m => m.FindByNameAsync(authorName)).ReturnsAsync(author);
+
+        _articleServiceMock.Setup(s => s.CreateArticle(dto)).ReturnsAsync(dto);
+
+        _mapperMock.Setup(m => m.Map<ArticleDTO>(request)).Returns(dto);
+        _mapperMock.Setup(m => m.Map<ArticleResponse>(dto)).Returns(response);
+
+        var result = await _controller.Add(request);
+
+        var okObjectResult = Assert.IsType<OkObjectResult>(result);
+        var controllerResponse = Assert.IsType<ArticleResponse>(okObjectResult.Value);
+        Assert.Equal(controllerResponse.Title, request.Title);
+        Assert.Equal(controllerResponse.Content, request.Content);
+        Assert.Equal(controllerResponse.PictureUrl, request.PictureUrl);
+        Assert.Equal(controllerResponse.Author, authorName);
     }
 
     // Тест на обновление статьи
     [Fact]
     public async Task Update_ReturnsOkResult_WithUpdatedArticle()
     {
-        // Arrange
-        var updateRequest = new UpdateArticleRequest { Title = "Updated Title" };
-        var articleDto = new ArticleDTO { Id = Guid.NewGuid(), AuthorId = "1", Title = "Updated Title" };
-        var articleResponse = new ArticleResponse { Id = articleDto.Id, Author = "user1" };
+        var categoryGuid = Guid.NewGuid();
+        var articleId = Guid.NewGuid();
+        var authorId = Guid.NewGuid().ToString();
+        var authorName = "Test_user";
 
-        _mapperMock.Setup(m => m.Map<ArticleDTO>(updateRequest)).Returns(articleDto);
-        _articleServiceMock.Setup(s => s.UpdateArticle(articleDto)).ReturnsAsync(articleDto);
-        _mapperMock.Setup(m => m.Map<ArticleResponse>(articleDto)).Returns(articleResponse);
+        var request = new UpdateArticleRequest
+        {
+            Title = "Test_title",
+            Content = "Test_content",
+            PictureUrl = "Test_url",
+            CategoryId = categoryGuid
+        };
 
-        _userManagerMock.Setup(um => um.FindByIdAsync("1")).ReturnsAsync(new IdentityUser { UserName = "user1" });
+        var dto = new ArticleDTO
+        {
+            Id = articleId,
+            Title = request.Title,
+            Content = request.Content,
+            PictureUrl = request.PictureUrl,
+            CreatedAt = DateTime.UtcNow,
+            AuthorId = authorId
+        };
 
-        // Act
-        var result = await _controller.Update(articleDto.Id, updateRequest);
+        var response = new ArticleResponse
+        {
+            Id = articleId,
+            Title = request.Title,
+            Content = request.Content,
+            PictureUrl = request.PictureUrl,
+            CreatedAt = DateTime.UtcNow,
+            Category = "Test_category",
+            Author = authorName
+        };
 
-        // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        var returnValue = Assert.IsType<ArticleResponse>(okResult.Value);
-        Assert.Equal(articleDto.Id, returnValue.Id);
-        Assert.Equal("user1", returnValue.Author);
-        Assert.Equal("Updated Title", returnValue.Title);
+        var author = new IdentityUser
+        {
+            UserName = authorName,
+            Id = authorId
+        };
+
+        _userManagerMock.Setup(m => m.FindByIdAsync(authorId)).ReturnsAsync(author);
+        _userManagerMock.Setup(m => m.FindByNameAsync(authorName)).ReturnsAsync(author);
+
+        _articleServiceMock.Setup(s => s.UpdateArticle(dto)).ReturnsAsync(dto);
+
+        _mapperMock.Setup(m => m.Map<ArticleDTO>(request)).Returns(dto);
+        _mapperMock.Setup(m => m.Map<ArticleResponse>(dto)).Returns(response);
+
+        var result = await _controller.Update(articleId, request);
+
+        var okObjectResult = Assert.IsType<OkObjectResult>(result);
+        var controllerResponse = Assert.IsType<ArticleResponse>(okObjectResult.Value);
+        Assert.Equal(controllerResponse.Title, request.Title);
+        Assert.Equal(controllerResponse.Content, request.Content);
+        Assert.Equal(controllerResponse.PictureUrl, request.PictureUrl);
+        Assert.Equal(controllerResponse.Author, authorName);
     }
 
     // Тест на удаление статьи
