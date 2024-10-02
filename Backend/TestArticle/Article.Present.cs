@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using News.BLL.DTO;
 using News.BLL.Interfaces;
-using News.DAL.Entities;
 using News.Presentation.Controllers;
 using News.Presentation.Models.Requests;
 using News.Presentation.Models.Responses;
 using System.Security.Claims;
 using System.Security.Principal;
+
+namespace ArticlesTests;
 
 public class ArticlesControllerTests
 {

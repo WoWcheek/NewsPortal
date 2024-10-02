@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "News.DAL", "News.DAL\News.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestArticle", "TestArticle\TestArticle.csproj", "{9DADC74E-717A-49EF-B7F6-F222524CE2EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuth", "TestAuth\TestAuth.csproj", "{4E95E3F0-45CE-4755-B6E0-5EB611F3D6D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9DADC74E-717A-49EF-B7F6-F222524CE2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DADC74E-717A-49EF-B7F6-F222524CE2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DADC74E-717A-49EF-B7F6-F222524CE2EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E95E3F0-45CE-4755-B6E0-5EB611F3D6D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E95E3F0-45CE-4755-B6E0-5EB611F3D6D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E95E3F0-45CE-4755-B6E0-5EB611F3D6D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E95E3F0-45CE-4755-B6E0-5EB611F3D6D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
