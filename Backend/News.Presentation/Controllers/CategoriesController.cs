@@ -21,6 +21,9 @@ public class CategoriesController : Controller
         _categoryService = categoryService;
     }
 
+    /// <summary>
+    /// Получить список всех категорий
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -31,6 +34,9 @@ public class CategoriesController : Controller
         return Ok(response);
     }
 
+    /// <summary>
+    /// Получить категорию по ее id
+    /// </summary>
     [HttpGet]
     [Route("{id:Guid}")]
     public async Task<IActionResult> GetSingle([FromRoute] Guid id)
@@ -42,6 +48,12 @@ public class CategoriesController : Controller
         return Ok(response);
     }
 
+    /// <summary>
+    /// Добавить категорию
+    /// </summary>
+    /// <param name="request">
+    /// Запрос, включающий в себя название категории
+    /// </param>
     [HttpPost]
     [Authorize]
     public async Task<IActionResult> Add([FromBody] AddCategoryRequest request)
@@ -62,6 +74,13 @@ public class CategoriesController : Controller
         }
     }
 
+    /// <summary>
+    /// Обновить категорию
+    /// </summary>
+    /// <param name="id">id категории, которую нужно обновить</param>
+    /// <param name="request">
+    /// Запрос, включающий в себя новое название категории
+    /// </param>
     [HttpPut]
     [Authorize]
     [Route("{id:Guid}")]
@@ -84,6 +103,11 @@ public class CategoriesController : Controller
         }
     }
 
+    /// <summary>
+    /// Удалить категорию
+    /// </summary>
+    /// <param name="id">id категории, которую нужно удалить
+    /// </param>
     [HttpDelete]
     [Authorize]
     [Route("{id:Guid}")]

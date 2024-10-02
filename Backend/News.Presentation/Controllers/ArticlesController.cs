@@ -24,6 +24,9 @@ public class ArticlesController : Controller
         _userManager = userManager;
     }
 
+    /// <summary>
+    /// Получить список всех новостей
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -40,6 +43,9 @@ public class ArticlesController : Controller
         return Ok(response);
     }
 
+    /// <summary>
+    /// Получить новость по ее id
+    /// </summary>
     [HttpGet]
     [Route("{id:Guid}")]
     public async Task<IActionResult> GetSingle([FromRoute] Guid id)
@@ -54,6 +60,12 @@ public class ArticlesController : Controller
         return Ok(response);
     }
 
+    /// <summary>
+    /// Добавить новость
+    /// </summary>
+    /// <param name="request">
+    /// Запрос, включающий в себя название новости, ее содержание, ссылку на картинку и id существующей категории, к которой следует отнести новость
+    /// </param>
     [HttpPost]
     [Authorize]
     public async Task<IActionResult> Add([FromBody] AddArticleRequest request)
@@ -80,6 +92,13 @@ public class ArticlesController : Controller
         }
     }
 
+    /// <summary>
+    /// Обновить новость
+    /// </summary>
+    /// <param name="id">id новости, которую нужно обновить</param>
+    /// <param name="request">
+    /// Запрос, включающий в себя новое название новости, ее новое содержание, новую ссылку на картинку и новій id существующей категории, к которой следует отнести новость
+    /// </param>
     [HttpPut]
     [Authorize]
     [Route("{id:Guid}")]
@@ -103,6 +122,11 @@ public class ArticlesController : Controller
         }
     }
 
+    /// <summary>
+    /// Удалить новость
+    /// </summary>
+    /// <param name="id">id новости, которую нужно удалить
+    /// </param>
     [HttpDelete]
     [Authorize]
     [Route("{id:Guid}")]
