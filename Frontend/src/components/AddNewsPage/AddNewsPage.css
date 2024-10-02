@@ -1,0 +1,106 @@
+/* Общие стили для формы */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4; /* Светло-серый фон для формы */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для формы */
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Стили для контейнеров с полями формы */
+  div {
+    margin-bottom: 20px;
+  }
+  
+  /* Стили для меток (label) */
+  label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  
+  /* Стили для текстовых полей (input) */
+  input[type="text"], 
+  textarea, 
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* При фокусе поле подсвечивается */
+  input[type="text"]:focus, 
+  textarea:focus, 
+  select:focus {
+    border-color: #8aac2b; /* Зеленая рамка при фокусе */
+    outline: none;
+  }
+  
+  /* Стили для textarea (многострочного ввода) */
+  textarea {
+    resize: vertical; /* Позволяет изменять только высоту textarea */
+    min-height: 120px;
+  }
+  
+  /* Стили для выпадающего списка (select) */
+  select {
+    appearance: none; /* Убираем стандартное оформление */
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  /* Стрелка для select */
+  select::-ms-expand {
+    display: none; /* Убираем стандартную стрелку в Edge */
+  }
+  
+  select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px 12px;
+  }
+  
+  /* Стили для кнопки отправки (submit) */
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #8aac2b; /* Зеленый цвет кнопки */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* При наведении цвет кнопки меняется */
+  button[type="submit"]:hover {
+    background-color: #799a24;
+  }
+  
+  /* Стили для ошибок и сообщений */
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

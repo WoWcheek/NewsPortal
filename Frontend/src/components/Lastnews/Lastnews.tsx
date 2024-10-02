@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate
 import NewsCard from '../OneNews/OneNews'; 
 import './LastNews.css';
 import BigNews from '../BigNews/BigNews';
@@ -7,17 +8,18 @@ interface NewsItem {
   id: string;          
   title: string;       
   content: string;    
-  pictureUrl: string;  
+  pictureUrl: string; 
   createdAt: Date;     
   category: string;   
   author: string;      
 }
 
-
 const NewsComponent: React.FC = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]); 
   const [loading, setLoading] = useState<boolean>(true);      
   const [error, setError] = useState<string | null>(null);    
+  
+  const navigate = useNavigate(); // Инициализируем useNavigate
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -50,8 +52,11 @@ const NewsComponent: React.FC = () => {
   }
 
   const featuredNews = newsItems.slice(0, 5);
-
   const remainingNews = newsItems.slice(5);
+
+  const handleAddNews = () => {
+    navigate('/add-news');
+  };
 
   return (
     <div className="news-container">
@@ -69,7 +74,6 @@ const NewsComponent: React.FC = () => {
           </div>
         )}
         <div className="news-list">
-
           {featuredNews.slice(1).map((item) => (
             <NewsCard
               id={item.id}
@@ -81,6 +85,7 @@ const NewsComponent: React.FC = () => {
           ))}
         </div>
       </div>
+      <button className="add-button" onClick={handleAddNews}>+</button>
       <div className='line'></div>
       <h2>And more <span className="highlight">News</span></h2>
       <div className="remaining-news-grid">
@@ -96,7 +101,6 @@ const NewsComponent: React.FC = () => {
       </div>
     </div>
   );
-
 };
 
 export default NewsComponent;

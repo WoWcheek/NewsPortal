@@ -60,6 +60,39 @@ const NewsDetails: React.FC = () => {
     }
   };
 
+  // Обработчик удаления новости
+  const handleDeleteClick = async () => {
+    const confirmed = window.confirm("Вы уверены, что хотите удалить эту новость?");
+    if (!confirmed) return;
+
+    const token = localStorage.getItem('token'); // Получаем токен из локального хранилища
+
+    if (!token) {
+      alert("Необходимо войти в систему для выполнения этого действия");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://localhost:7101/api/articles/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        alert("Новость успешно удалена");
+        navigate('/'); // Перенаправляем на главную страницу после удаления
+      } else {
+        const errorData = await response.json();
+        alert(`Ошибка при удалении: ${errorData.message || 'Неизвестная ошибка'}`);
+      }
+    } catch (error) {
+      console.error('Произошла ошибка при запросе:', error);
+      alert('Произошла ошибка при удалении. Пожалуйста, попробуйте снова.');
+    }
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -73,7 +106,10 @@ const NewsDetails: React.FC = () => {
       {newsItem && (
         <>
           <h1>{newsItem.title}</h1>
-          <button onClick={handleEditClick} className="edit-button">Редактировать</button> {/* Добавляем кнопку */}
+          <div className="button-group">
+            <button onClick={handleEditClick} className="edit-button">Редактировать</button>
+            <button onClick={handleDeleteClick} className="delete-button">Удалить</button> {/* Кнопка удаления */}
+          </div>
           <div className="news-meta">
             <div className="author-info">
               <img src="https://cdn-icons-png.flaticon.com/512/3076/3076248.png" alt={newsItem.author} className="author-avatar" />

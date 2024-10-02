@@ -84,7 +84,7 @@ public class CategoriesController : Controller
     [HttpPut]
     [Authorize]
     [Route("{id:Guid}")]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateArticleRequest request)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCategoryRequest request)
     {
         var categoryDto = _mapper.Map<CategoryDTO>(request);
         categoryDto.Id = id;
